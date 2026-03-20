@@ -21,13 +21,13 @@ package "Módulo de Compras y Suministros" {
     usecase "Asignar Jefe de Proyecto" as UC_Ext2
 }
 
-' Relación principal (Invertimos la flecha para que el actor salga a la derecha)
-UC_Base <-- Compras
+' Relación principal
+Compras --> UC_Base
 
 ' Relaciones INCLUDE (El caso base apunta a los incluidos)
-UC_Base ..> UC_Inc1 : <<include>>
-UC_Base ..> UC_Inc2 : <<include>>
-UC_Base ..> UC_Inc3 : <<include>>
+UC_Inc1 ..> UC_Base : <<include>>
+UC_Inc2 ..> UC_Base : <<include>>
+UC_Inc3 ..> UC_Base : <<include>>
 
 ' Relaciones EXTEND (Los casos opcionales apuntan al caso base)
 UC_Ext1 ..> UC_Base : <<extend>>
