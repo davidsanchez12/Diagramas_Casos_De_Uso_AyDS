@@ -1,0 +1,49 @@
+@startuml
+' Acomoda el diagrama de izquierda a derecha
+left to right direction
+
+' Estilo rectangular para el sistema
+skinparam packageStyle rectangle
+
+' Actor Principal (Inicia el caso de uso)
+actor "Jefe de Bodega" as Bodega
+
+package "Módulo de Reportes e Inventario" {
+    
+    usecase "Generar Reporte\npor Proyecto" as UC_Base
+    
+    ' Casos de uso obligatorios (Includes)
+    usecase "Autenticarse" as UC_Inc1
+    usecase "Seleccionar Proyecto" as UC_Inc2
+    usecase "Definir Período" as UC_Inc3
+    
+    ' Casos de uso opcionales (Extends)
+    usecase "Exportar a PDF" as UC_Ext1
+    usecase "Imprimir Reporte\n(Físico)" as UC_Ext2
+}
+
+' Actor Secundario (Recibe el reporte)
+actor "Jefe de Proyecto" as Proyecto
+
+' Relación del actor principal con el caso base
+Bodega --> UC_Base
+
+' Relación del caso base hacia el actor secundario
+UC_Base --> Proyecto : Recibe reporte
+
+' ==========================================
+' RELACIONES INCLUDE 
+' (Dirección: Desde el sub-caso HACIA el caso base)
+' ==========================================
+UC_Inc1 ..> UC_Base : <<include>>
+UC_Inc2 ..> UC_Base : <<include>>
+UC_Inc3 ..> UC_Base : <<include>>
+
+' ==========================================
+' RELACIONES EXTEND 
+' (Dirección: Desde el caso base HACIA el sub-caso opcional)
+' ==========================================
+UC_Base ..> UC_Ext1 : <<extend>>
+UC_Base ..> UC_Ext2 : <<extend>>
+
+@enduml

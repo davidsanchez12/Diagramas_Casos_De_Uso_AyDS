@@ -1,0 +1,40 @@
+@startuml
+' Acomoda el diagrama de izquierda a derecha
+left to right direction
+
+' Estilo rectangular para el sistema
+skinparam packageStyle rectangle
+
+actor "Jefe de Bodega" as Bodega
+
+package "Módulo de Bodega e Inventario" {
+    
+    usecase "Registrar Ingreso de Producto" as UC_Base
+    
+    ' Casos de uso obligatorios (Includes)
+    usecase "Autenticarse" as UC_Inc1
+    usecase "Seleccionar Ticket de Compra" as UC_Inc2
+    usecase "Verificar Cantidades" as UC_Inc3
+    
+    ' Casos de uso opcionales (Extends)
+    usecase "Registrar Material Dañado/Rechazo" as UC_Ext1
+}
+
+' Relación principal del actor con el caso base
+Bodega --> UC_Base
+
+' ==========================================
+' RELACIONES INCLUDE 
+' El caso base "necesita" ejecutar estos pasos (La flecha nace del Base)
+' ==========================================
+UC_Base <.. UC_Inc1 : <<include>>
+UC_Base <.. UC_Inc2 : <<include>>
+UC_Base <.. UC_Inc3 : <<include>>
+
+' ==========================================
+' RELACIONES EXTEND 
+' Los pasos opcionales "se extienden" hacia el caso base (La flecha nace del Opcional)
+' ==========================================
+UC_Ext1 ..> UC_Base : <<extend>>
+
+@enduml
