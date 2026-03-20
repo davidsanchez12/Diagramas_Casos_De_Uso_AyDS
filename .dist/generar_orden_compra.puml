@@ -1,0 +1,36 @@
+@startuml
+' Esta directiva acomoda el diagrama de izquierda a derecha (estilo clásico UML)
+left to right direction
+
+' Damos estilo rectangular al límite del sistema
+skinparam packageStyle rectangle
+
+actor "Encargado de Compras" as Compras
+
+package "Módulo de Compras y Suministros" {
+    
+    usecase "Crear Tícket de compra" as UC_Base
+    
+    ' Casos de uso obligatorios
+    usecase "Autenticarse" as UC_Inc1
+    usecase "Seleccionar Proveedor" as UC_Inc2
+    usecase "Agregar material y herramienta" as UC_Inc3
+    
+    ' Casos de uso opcionales
+    usecase "Asignar un Proyecto" as UC_Ext1
+    usecase "Asignar Jefe de Proyecto" as UC_Ext2
+}
+
+' Relación principal (Invertimos la flecha para que el actor salga a la derecha)
+UC_Base <-- Compras
+
+' Relaciones INCLUDE (El caso base apunta a los incluidos)
+UC_Base ..> UC_Inc1 : <<include>>
+UC_Base ..> UC_Inc2 : <<include>>
+UC_Base ..> UC_Inc3 : <<include>>
+
+' Relaciones EXTEND (Los casos opcionales apuntan al caso base)
+UC_Ext1 ..> UC_Base : <<extend>>
+UC_Ext2 ..> UC_Base : <<extend>>
+
+@enduml

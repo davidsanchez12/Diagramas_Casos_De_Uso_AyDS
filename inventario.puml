@@ -1,0 +1,16 @@
+@startuml InventarioSystem
+left to right direction
+actor "Bodeguero" as bodeguero
+actor "Supervisor de Obra" as supervisor
+
+package "Sistema de Inventario - SAVA INVERSIONES" {
+  usecase "Registrar entrada de material" as UC1
+  usecase "Solicitar material para obra" as UC2
+  usecase "Consultar existencias" as UC3
+}
+
+bodeguero --> UC1
+bodeguero --> UC3
+supervisor --> UC2
+supervisor --> UC3
+@enduml
